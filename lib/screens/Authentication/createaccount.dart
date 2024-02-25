@@ -7,6 +7,8 @@ import 'package:explora_app/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../HomePage.dart';
+
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});
 
@@ -84,9 +86,8 @@ class _CreateAccountState extends State<CreateAccount> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => VerificationCode(
-          userCredential: userCredential,
-        ),
+        builder: (context) => Home(),
+        // builder: (context) => VerificationCode(userCredential: userCredential,),
       ),
     );
   }

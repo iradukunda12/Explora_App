@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:explora_app/screens/Authentication/createaccount.dart';
 import 'package:explora_app/screens/Authentication/verificationcode.dart';
+import 'package:explora_app/screens/HomePage.dart';
 import 'package:explora_app/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +85,8 @@ class _LoginFormState extends State<LoginForm> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => VerificationCode(userCredential: userCredential),
+        builder: (context) => Home(),
+        // builder: (context) => VerificationCode(userCredential: userCredential),
       ),
     );
   }
