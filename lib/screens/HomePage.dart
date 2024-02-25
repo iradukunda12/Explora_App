@@ -18,9 +18,9 @@ class _HomeState extends State<Home> {
   PageController pageController = PageController();
 
   List<BottomNavigationBarItem> get items => [
-    BottomNavigationBarItem(icon: Icon(Icons.phone,color: Colors.grey.shade700,size: 24,)),
-    BottomNavigationBarItem(icon: Icon(Icons.camera,color: Colors.grey.shade700,size: 24,)),
-    BottomNavigationBarItem(icon: Icon(Icons.image,color: Colors.grey.shade700,size: 24,)),
+    BottomNavigationBarItem(icon: Icon(Icons.phone,color: Colors.grey.shade700,size: 24,),label: "Phone"),
+    BottomNavigationBarItem(icon: Icon(Icons.camera,color: Colors.grey.shade700,size: 24,),label: "Camera"),
+    BottomNavigationBarItem(icon: Icon(Icons.image,color: Colors.grey.shade700,size: 24,),label: "Media"),
   ];
 
 
