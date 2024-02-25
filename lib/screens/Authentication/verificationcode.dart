@@ -1,11 +1,13 @@
 import 'package:explora_app/screens/Authentication/login.dart';
 import 'package:explora_app/utils/constants.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
 class VerificationCode extends StatefulWidget {
-  const VerificationCode({super.key});
+  final UserCredential userCredential;
+  const VerificationCode({super.key, required this.userCredential});
 
   @override
   State<VerificationCode> createState() => _VerificationCodeState();
@@ -53,7 +55,7 @@ class _VerificationCodeState extends State<VerificationCode> {
                       ),
                     ),
                     TextSpan(
-                      text: 'abcd@gmail.com ',
+                      text: '${widget.userCredential.user?.email} ',
                       style: GoogleFonts.urbanist(
                         fontSize: 14.0,
                         color: Colors.blue,

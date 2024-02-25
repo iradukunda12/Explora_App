@@ -1,0 +1,22 @@
+
+
+class FirebaseConfig{
+
+  
+  static final FirebaseConfig instance = FirebaseConfig.internal();
+
+  factory FirebaseConfig() => instance;
+
+  FirebaseConfig.internal();
+
+  Future<void> initialize() aysnc {
+
+    await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  a
+
+  }
+
+}
