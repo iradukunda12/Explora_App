@@ -14,52 +14,65 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   PageController pageController = PageController();
 
   List<BottomNavigationBarItem> get items => [
-    BottomNavigationBarItem(icon: Icon(Icons.phone,color: Colors.grey.shade700,size: 24,),label: "Phone"),
-    BottomNavigationBarItem(icon: Icon(Icons.camera,color: Colors.grey.shade700,size: 24,),label: "Camera"),
-    BottomNavigationBarItem(icon: Icon(Icons.image,color: Colors.grey.shade700,size: 24,),label: "Media"),
-  ];
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.phone,
+              color: Colors.grey.shade700,
+              size: 24,
+            ),
+            label: "Phone"),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.camera,
+              color: Colors.grey.shade700,
+              size: 24,
+            ),
+            label: "Camera"),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.image,
+              color: Colors.grey.shade700,
+              size: 24,
+            ),
+            label: "Media"),
+        BottomNavigationBarItem(
+            icon: Icon(
+              Icons.person,
+              color: Colors.grey.shade700,
+              size: 24,
+            ),
+            label: "Profile"),
+      ];
 
-
-  void handleNavigator(int index){
+  void handleNavigator(int index) {
     pageController.jumpToPage(index);
-    if(index == 0){
+    if (index == 0) {
       onTappedPhone();
-    }else if (index == 1){
+    } else if (index == 1) {
       onTappedCamera();
-    }else if (index == 2){
+    } else if (index == 2) {
       onTappedMediaSelector();
-    }
+    } else if (index == 3) {}
   }
 
- void onTappedPhone(){
+  void onTappedPhone() {}
 
- }
-
- void onTappedCamera(){
-
-     ImagePicker().pickImage(source: ImageSource.camera).then((value) {
-
-     });
-
- }
-
- void onTappedMediaSelector() async {
-    await FilePickerForDevices().selectMedia().then((value){
-
-    });
- }
-
-  void handleOnPageChanged(index){
-
+  void onTappedCamera() {
+    ImagePicker().pickImage(source: ImageSource.camera).then((value) {});
   }
+
+  void onTappedMediaSelector() async {
+    await FilePickerForDevices().selectMedia().then((value) {});
+  }
+
+  void handleOnPageChanged(index) {}
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: ScreenBackgroundColor,
       bottomNavigationBar: BottomNavigationBar(
         onTap: handleNavigator,
@@ -73,12 +86,9 @@ class _HomeState extends State<Home> {
               physics: NeverScrollableScrollPhysics(),
               onPageChanged: handleOnPageChanged,
               children: [
-
                 PhoneNavigator(),
                 CameraNavigator(),
                 MediaSelectorNavigator(),
-
-
               ],
             ),
           ),

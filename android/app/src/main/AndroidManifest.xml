@@ -1,4 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Permissions for reading contacts -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- Permissions for writing contacts -->
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <!-- Permission for sending SMS -->
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <!-- Permission for making phone calls -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    
     <application
         android:label="explora_app"
         android:name="${applicationName}"
@@ -30,4 +40,11 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+    <queries>
+<!-- If your app makes calls -->
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+</queries>
 </manifest>

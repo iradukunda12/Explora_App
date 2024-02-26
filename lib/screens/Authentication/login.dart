@@ -7,6 +7,7 @@ import 'package:explora_app/screens/HomePage.dart';
 import 'package:explora_app/utils/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -28,6 +29,27 @@ class _LoginFormState extends State<LoginForm> {
     super.initState();
     // Schedule the checkConnectivity method to be called after the frame is built
     // WidgetsBinding.instance!.addPostFrameCallback((_) => checkConnectivity());
+  }
+
+  void googleAuth() async {
+    final GoogleSignIn _signIn = GoogleSignIn();
+    try {
+      final GoogleSignInAccount? account = await _signIn.signIn();
+      if (account != null) {
+        final GoogleSignInAuthentication authentication =
+            await account.authentication;
+
+        final AuthCredential accountCredentials = GoogleAuthProvider.credential(
+            idToken: authentication.idToken,
+            accessToken: authentication.accessToken);
+        await FirebaseAuth.instance.signInWithCredential(accountCredentials);
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   void onDispose() {
@@ -193,6 +215,7 @@ class _LoginFormState extends State<LoginForm> {
                                     left: 30.0, top: 12.0),
                                 border: InputBorder.none,
                               ),
+                              obscureText: true,
                             ),
                           ),
                           const SizedBox(height: 8.0),
@@ -234,58 +257,97 @@ class _LoginFormState extends State<LoginForm> {
                     ),
                   ),
                   const SizedBox(
-                    height: 180,
+                    height: 100,
                   ),
                   Container(
-                    width: 350,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: handleNextPressed,
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.black, // Background color
-                        onPrimary: Colors.white, // Text color
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 10), // Button padding
-                        textStyle: const TextStyle(fontSize: 16), // Text style
-                        elevation: 4, // Elevation (shadow)
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(30), // Button border radius
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 350,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: handleNextPressed,
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.black, // Background color
+                              onPrimary: Colors.white, // Text color
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10), // Button padding
+                              textStyle:
+                                  const TextStyle(fontSize: 16), // Text style
+                              elevation: 4, // Elevation (shadow)
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    30), // Button border radius
+                              ),
+                            ),
+                            child: const Text("Next"),
+                          ),
                         ),
-                      ),
-                      child: const Text("Next"),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "New Member?",
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => CreateAccount(),
+                                  ),
+                                );
+                              },
+                              child: const Padding(
+                                padding: EdgeInsets.only(left: 2.0),
+                                child: Text(
+                                  "Register now",
+                                  style: TextStyle(
+                                    color: primaryColor,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          width: 350,
+                          height: 50,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              googleAuth();
+                            },
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.black, // Background color
+                              onPrimary: Colors.white, // Text color
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20,
+                                  vertical: 10), // Button padding
+                              textStyle:
+                                  const TextStyle(fontSize: 16), // Text style
+                              elevation: 4, // Elevation (shadow)
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    30), // Button border radius
+                              ),
+                            ),
+                            child: Text("Google Account"),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 30,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        "New Member?",
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CreateAccount(),
-                            ),
-                          );
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 2.0),
-                          child: Text(
-                            "Register now",
-                            style: TextStyle(
-                              color: primaryColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+
                   const SizedBox(
                     height: 270,
                   ),
